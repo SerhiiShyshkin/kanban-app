@@ -3,6 +3,7 @@ import prisma from "@/lib/db";
 export default async function Board({ params }: { params: { slug: string } }) {
 
     const columns = await prisma.column.findMany({
+        
 
         where: {
             boardId: params.slug,
