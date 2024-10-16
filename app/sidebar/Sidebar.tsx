@@ -1,7 +1,8 @@
 import Link from "next/link";
 import prisma from "@/lib/db";
 import AddBoardModal from "../components/Modal";
-import { AddBoardForm } from '../features/AddBoardForm';
+import AddBoardForm from "../features/AddBoardForm";
+
 
 
 
