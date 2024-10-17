@@ -2,7 +2,7 @@ import prisma from "@/lib/db";
 
 export default async function Board({ params }: { params: { slug: string } }) {
 
-    const columns = await prisma.column.findMany({
+    /* const columns = await prisma.column.findMany({
         
 
         where: {
@@ -16,12 +16,12 @@ export default async function Board({ params }: { params: { slug: string } }) {
 
 
 
-    })
+    }) */
 
     return (
         <>
 
-            {columns.map(({id, title, order, tasks }) => (<span key={id}>{title + order + id}</span>))}
+            {/* {columns.map(({id, title, order, tasks }) => (<span key={id}>{title + order + id}</span>))} */}
 
         </>
     );

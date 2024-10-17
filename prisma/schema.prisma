@@ -10,8 +10,7 @@ datasource db {
 model Board {
   id        String   @id @default(uuid())
   name      String?
-  title     String   @unique
-  order     Int
+  title     String   @unique  
   columns   Column[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -21,7 +20,7 @@ model Column {
   id        String   @id @default(uuid())
   name      String?
   title     String
-  order     Int
+  order     Int      
   boardId   String
   board     Board    @relation(fields: [boardId], references: [id])
   tasks     Task[]
@@ -33,7 +32,7 @@ model Task {
   id          String    @id @default(uuid())
   name        String?
   title       String
-  description String
+  description String?
   order       Int
   columnId    String
   column      Column    @relation(fields: [columnId], references: [id])
