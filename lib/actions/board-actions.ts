@@ -1,22 +1,23 @@
 "use server";
 
+import { redirect } from "next/dist/server/api-utils";
 import prisma from "../db";
+import { revalidatePath } from "next/cache";
 
-export async function handleSubmit(data: FormData) {
-  const title = data.get("title");
-  const names = data.getAll("column");
+export async function createBoard({ title, columns }: { title: string; columns: { title: string }[] }) {
+  const columns1: { title: string; order: number }[] = [];
 
-  const columns: {title: string, order: number}[] = [];
-
-  names.map((name, index) => columns.push({title: name as string, order: index }) )
+  columns.map((column, index) => columns1.push({ title: column.title, order: index }));
 
   await prisma.board.create({
     data: {
-        title: title as string,
-        columns: {
-          create: columns
-        }
+      title: title,
+      columns: {
+        create: columns1,
+      },
+    },
+  });
 
-    }
-  })
+  revalidatePath("/");
+  
 }

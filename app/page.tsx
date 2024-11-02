@@ -1,27 +1,5 @@
 import prisma from "@/lib/db";
 
-
-
-
-
-
 export default async function Home() {
-
-  
- 
-
-
-
-
-
-  return (
-    <>
-    
-
-
-
-
-
-    </>
-  );
+  return <div>Boards</div>;
 }
