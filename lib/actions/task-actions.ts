@@ -7,13 +7,16 @@ export async function createTask({
   title,
   description,
   columnId,
-  order,
+  subtasks,
 }: {
   title: string;
   description: string;
   columnId: string;
-  order: number;
+  subtasks: { title: string }[];
 }) {
+  const subtasks1: { title: string }[] = [];
+
+  subtasks.map((subtask, index) => subtasks1.push({ title: subtask.title }));
   await prisma.task.create({
     data: {
       title,
@@ -23,9 +26,13 @@ export async function createTask({
           id: columnId,
         },
       },
-      order,
+      subtasks: {
+        create: subtasks1,
+      },
     },
   });
 
-  revalidatePath("/");
+  revalidatePath(`/board/${columnId}`);
 }
+
+

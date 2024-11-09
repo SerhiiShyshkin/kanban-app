@@ -1,5 +1,5 @@
 "use client";
-import { ModalContext } from "@/lib/context/modalContext";
+import { ModalContext } from "@/lib/context/modal/modalContext";
 import { ReactNode, useState } from "react";
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {

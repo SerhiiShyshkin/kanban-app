@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import {LogoIcon} from "./components/icons/LogoIcon";
-import Sidebar from "./features/sidebar/Sidebar";
-import { ModalContext } from "@/lib/context/modalContext";
-import { ModalProvider } from "./components/ModalProvider";
-
-
+import { LogoIcon } from "./components/icons/LogoIcon";
+import Sidebar from "./features/Sidebar";
+import { ModalProvider } from "../lib/context/modal/ModalProvider";
+import IconLink from "./components/IconLink";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,13 +16,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className=''>
+    <html className="h-full" lang="en">
+      <body className="h-full">
         <ModalProvider>
-          <LogoIcon />
-          <Sidebar />
-          <br></br>
-          {children}
+          <div className="grid gap-x-[2px] grid-rows-[max-content_1fr] grid-cols-[300px_1fr] max-h-screen min-h-full">
+            <div className="bg-white row-start-1 row-end-2 col-start-1 col-end-2 header">
+              <IconLink href="/">
+                <LogoIcon className="p-8" textColor="fill-black" />
+              </IconLink>
+            </div>
+            <div className="row-start-2 row-end-3 col-start-1 col-end-2 h-full">
+              <Sidebar />
+            </div>
+            
+            <div className="row-start-1 row-end-3 col-start-2 col-end-3 ">{children}</div>
+          </div>
         </ModalProvider>
       </body>
     </html>

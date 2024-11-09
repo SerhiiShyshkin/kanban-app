@@ -1,5 +1,9 @@
 import prisma from "@/lib/db";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  return <div>Boards</div>;
+  const [first] = await prisma.board.findMany();
+  first && redirect(`board/${first.id}`);
+
+  return <></>;
 }

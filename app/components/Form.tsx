@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import { FormEvent, ReactNode, FC } from "react";
 
 type FormProps = {
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  children: React.ReactNode;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  children: ReactNode;
 };
 
-const Form: React.FC<FormProps> = ({ onSubmit, children }) => {
+const Form: FC<FormProps> = ({ onSubmit, children }) => {
   return <form onSubmit={onSubmit}>{children}</form>;
 };
 
-export { Form };
+export default Form;
