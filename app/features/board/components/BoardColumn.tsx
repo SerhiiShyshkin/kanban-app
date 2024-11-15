@@ -1,48 +1,37 @@
 import { Subtask, Task } from "@prisma/client";
-import ColorPicker from "./ColorPicker";
+import ColorMarkerWithPicker from "../../../components/ColorMarkerWithPicker";
+import prisma from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
-/* type ColumnProps = {
+
+type BoardColumnProps = {
   title: string;
-  tasks: {
-    id: string;
-    title: string;
-    description: string | null;
-    columnId: string;
-    subtusks: {
-      id: string;
-      title: string;
-      isCompleted: boolean;
-      taskId: string;
-      createdAt: Date;
-      updatedAt: Date;
-    }[];
-    createdAt: Date;
-    updatedAt: Date;
-  }[];
-}; */
-
-type AppTask = Task & {
-  subtasks: Subtask[];
+  color: string;
+  id: string;
+  tasks: (Task & {
+    subtasks: Subtask[];
+  })[];
 };
 
-type ColumnProps = {
-  title: string;
-  tasks: AppTask[];
-};
+const BoardColumn = ({ title, id, color,tasks }: BoardColumnProps) => {
 
-const BoardColumn = ({ title, tasks }: ColumnProps) => {
-  function getRandomColor(): string {
+
+  
+
+  
+  
+/*   function getRandomColor(): string {
     const hexChars = "0123456789ABCDEF";
     const hexArray = hexChars.split("");
     const colorArray = Array.from({ length: 6 }, () => hexArray[Math.floor(Math.random() * hexArray.length)]);
     const color = `#${colorArray.join("")}`;
     return color;
   }
-
+ */
   return (
     <div className="flex flex-col gap-6 w-[280px]">
       <div className="flex flex-row gap-3 items-center">
-        <ColorPicker defaultColor={getRandomColor()} />
+        <ColorMarkerWithPicker color={color}  id={id} />
         <div className="text-xs text-textMuted font-bold leading-15 tracking-[2.4px]">{`${title.toUpperCase()} (${
           tasks.length
         })`}</div>
@@ -54,7 +43,9 @@ const BoardColumn = ({ title, tasks }: ColumnProps) => {
             className="flex flex-col gap-2 text-sm text-black font-bold leading-19 tracking-normal bg-white px-4 py-6 rounded-lg"
           >
             {task.title}
-            <div className="text-xs text-textMuted font-bold leading-15 tracking-normal">{`${task.subtasks.length} subtasks`}</div>
+            <div className="text-xs text-textMuted font-bold leading-15 tracking-normal">{`${
+              task.subtasks.length as number
+            } subtasks`}</div>
           </div>
         ))}
       </div>

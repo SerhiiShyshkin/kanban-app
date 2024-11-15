@@ -1,3 +1,4 @@
+
 type BoardIconProps = {
   className?: string;
 };

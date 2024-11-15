@@ -1,8 +1,7 @@
 import "./globals.css";
 import { LogoIcon } from "./components/icons/LogoIcon";
-import Sidebar from "./features/Sidebar";
-import { ModalProvider } from "../lib/context/modal/ModalProvider";
-import IconLink from "./components/IconLink";
+import Sidebar from "./Sidebar";
+import IconLink from "./features/board/components/BoardItem";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,20 +17,16 @@ export default function RootLayout({
   return (
     <html className="h-full" lang="en">
       <body className="h-full">
-        <ModalProvider>
-          <div className="grid gap-x-[2px] grid-rows-[max-content_1fr] grid-cols-[300px_1fr] max-h-screen min-h-full">
-            <div className="bg-white row-start-1 row-end-2 col-start-1 col-end-2 header">
-              <IconLink href="/">
-                <LogoIcon className="p-8" textColor="fill-black" />
-              </IconLink>
-            </div>
-            <div className="row-start-2 row-end-3 col-start-1 col-end-2 h-full">
-              <Sidebar />
-            </div>
-            
-            <div className="row-start-1 row-end-3 col-start-2 col-end-3 ">{children}</div>
+        <div className="grid gap-x-[2px] grid-rows-[max-content_1fr] grid-cols-[300px_1fr] max-h-screen min-h-full">
+          <div className="bg-white row-start-1 row-end-2 col-start-1 col-end-2 header">
+            <IconLink href="/" icon={<LogoIcon className="p-8" textColor="fill-black" />} />
           </div>
-        </ModalProvider>
+          <div className="row-start-2 row-end-3 col-start-1 col-end-2 h-full">
+            <Sidebar />
+          </div>
+
+          <div className="row-start-1 row-end-3 col-start-2 col-end-3 ">{children}</div>
+        </div>
       </body>
     </html>
   );

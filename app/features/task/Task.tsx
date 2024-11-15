@@ -2,31 +2,33 @@
 
 import { useState } from "react";
 import { z } from "zod";
-import Modal from "../components/Modal";
-import { Label } from "../components/Label";
-import { Input } from "../components/Input";
-import { Button } from "../components/Button";
-import Form from "../components/Form";
-import CloseIcon from "../components/icons/CloseIcon";
-import { createTask } from "@/lib/actions/task-actions";
+
+import { createTask } from "@/lib/server-actions/task-actions";
+
+
+import Modal from "@/app/components/Modal";
+import Form from "@/app/components/Form";
+import { Label } from "@/app/components/Label";
+import { Input } from "@/app/components/Input";
+import CloseIcon from "@/app/components/icons/CloseIcon";
+import Select from "@/app/components/Select";
 import { Column } from "@prisma/client";
-import Select from "../components/Select";
+
 
 const schemaTitle = z.object({ title: z.string().min(1) });
 
-type AddTaskProps = {
-  columns: Column[];
+type TaskProps = {
+  columns: Column [];
 };
 
 type Title = z.infer<typeof schemaTitle>;
-export default function AddTask({ columns }: AddTaskProps) {
+export default function Task({ columns }: TaskProps) {
+  //const [first] = columns && columns;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [subtasks, setSubtasks] = useState<Title[]>([]);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  //const [selectedValue, setSelectedValue] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<Column>(columns[0]);
-
 
   const parsecolumns = schemaTitle.array().safeParse(subtasks);
   const parseTitle = schemaTitle.safeParse(title);
@@ -43,8 +45,6 @@ export default function AddTask({ columns }: AddTaskProps) {
     setSubtasks(newcolumns);
   };
 
-  
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createTask({ title: title, description: description, columnId: selectedOption.id, subtasks: subtasks });
@@ -53,9 +53,9 @@ export default function AddTask({ columns }: AddTaskProps) {
 
   return (
     <>
-      <Button type="button" className="btn-primary-L" action={() => setIsOpen(true)}>
+      <button type="button" className="btn-primary-L" onClick={() => setIsOpen(true)}>
         + Add New Task
-      </Button>
+      </button>
 
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
         <Form onSubmit={handleSubmit}>
@@ -105,45 +105,33 @@ export default function AddTask({ columns }: AddTaskProps) {
                       value={subtask.title}
                       onChange={(e) => handleSubtasksChange(index, e)}
                     />
-                    <Button className="btn-icon" type="button" action={() => handleRemoveSubtask(index)}>
+                    <button className="btn-icon" onClick={() => handleRemoveSubtask(index)}>
                       <CloseIcon className="fill-textMuted hover:fill-errorRed" />
-                    </Button>
+                    </button>
                   </div>
                 ))}
-                <Button
+                <button
                   className="btn-secondary"
-                  type="button"
-                  action={() => setSubtasks([...subtasks, { title: "" }])}
+                  onClick={() => setSubtasks([...subtasks, { title: "" }])}
                   disabled={!parsecolumns.success}
                 >
                   Add New Subtask
-                </Button>
+                </button>
               </div>
             </div>
 
             <div>
-              {/* <label htmlFor="dropdown">Status</label>
-              <select id="dropdown" name="dropdown" value={selectedValue} onChange={handleSelectedChange}>
-                <option value="Please ..."></option>
-                {columns?.map((column) => (
-                  <option key={column.id} value={column.id}>
-                    {column.title}
-                  </option>
-                ))}
-              </select> */}
               <Select
                 options={columns}
                 getOptionalValue={(column) => column.title}
-                getOptionalLabel={(column) => column.title}
-                getOptionalId={(column) => column.id}
-                state={selectedOption}
+                selectedOption={selectedOption}
                 onChange={(column) => setSelectedOption(column)}
               />
             </div>
 
-            <Button type="submit" className="btn-primary-S" disabled={false}>
+            <button className="btn-primary-S" disabled={false}>
               Create Task
-            </Button>
+            </button>
           </div>
         </Form>
       </Modal>

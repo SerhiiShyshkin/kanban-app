@@ -1,6 +1,6 @@
 'use client'
 
-import { createTask } from "@/lib/actions/task-actions";
+import { createTask } from "@/lib/server-actions/task-actions";
 
 export function Test() {
     const title = 'Task 1'
