@@ -75,7 +75,7 @@ const createBoard = async (title: string, columns: Column[]) => {
   revalidatePath(`/`);
 };
 
-const updateBoard = async (id: string, title: string, columns: C[]) => {
+const updateBoard = async (id: string, title: string, columns: Column[]) => {
   const updatedBoard = await prisma.board.update({
     where: { id },
     data: {
