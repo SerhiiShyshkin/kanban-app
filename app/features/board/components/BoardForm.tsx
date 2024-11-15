@@ -4,11 +4,12 @@ import { useState } from "react";
 import { z } from "zod";
 import { createBoard, updateBoard } from "@/lib/server-actions/board-actions";
 import { getRandomColor } from "@/lib/helpers/getRandomColor";
-import { Board, Column } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { Label } from "@/app/components/Label";
 import Form from "@/app/components/Form";
 import { Input } from "@/app/components/Input";
 import CloseIcon from "@/app/components/icons/CloseIcon";
+import { Board, Column } from "@/app/types";
 
 const schemaTitle = z.string(z.string().min(1));
 const schemaColumn = z.object({ title: z.string().min(1) });
@@ -16,8 +17,7 @@ const schemaColumn = z.object({ title: z.string().min(1) });
 type Title = z.infer<typeof schemaTitle>;
 
 type BoardFormProps = {
-  board: (Board & { columns: Column[] }) | null;
-
+  board: Board | null;
   setIsOpen: (isOpen: boolean) => void;
 };
 

@@ -1,6 +1,7 @@
 "use server";
 
-import { Column } from "@prisma/client";
+
+import { Column } from "@/app/types";
 import prisma from "../db";
 import { revalidatePath } from "next/cache";
 
@@ -26,8 +27,16 @@ const updateColor = async (id: string, color: string) => {
 const getBoards = async () => {
   try {
     const boards = await prisma.board.findMany({
-      include: {
-        columns: true,
+      select: {
+        id: true,
+        title: true,
+        columns: {
+          select: {
+            id: true,
+            title: true,
+            color: true,
+          },
+        },
       },
     });
     return boards;
@@ -66,7 +75,7 @@ const createBoard = async (title: string, columns: Column[]) => {
   revalidatePath(`/`);
 };
 
-const updateBoard = async (id: string, title: string, columns: Column[]) => {
+const updateBoard = async (id: string, title: string, columns: C[]) => {
   const updatedBoard = await prisma.board.update({
     where: { id },
     data: {
@@ -79,8 +88,16 @@ const updateBoard = async (id: string, title: string, columns: Column[]) => {
         })),
       },
     },
-    include: {
-      columns: true,
+    select: {
+      id: true,
+      title: true,
+      columns: {
+        select: {
+          id: true,
+          title: true,
+          color: true,
+        },
+      },
     },
   });
 
@@ -88,4 +105,4 @@ const updateBoard = async (id: string, title: string, columns: Column[]) => {
   return updatedBoard;
 };
 
-export { createBoard, updateBoard, updateColor, getBoard , getBoards};
+export { createBoard, updateBoard, updateColor, getBoard, getBoards };

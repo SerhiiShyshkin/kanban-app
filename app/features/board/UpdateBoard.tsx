@@ -5,9 +5,9 @@ import BoardIcon from "./components/BoardIcon";
 import AddBoardButton from "./components/AddBoardButton";
 import BoardForm from "./components/BoardForm";
 import Modal from "@/app/components/Modal";
-import { Board, Column } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
-type UpdateBoardProps = { board: (Board & { columns: Column[] }) | null };
+type UpdateBoardProps = { board: Prisma.BoardGetPayload<{ include: { columns: true } }> | null };
 
 const UpdateBoard = ({ board }: UpdateBoardProps) => {
   const { isOpen, setIsOpen } = useToggleOpen();
@@ -21,7 +21,7 @@ const UpdateBoard = ({ board }: UpdateBoardProps) => {
         </Modal>
       )}
     </>
-  );  
+  );
 };
 
 export default UpdateBoard;
