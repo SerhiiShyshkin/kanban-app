@@ -11,10 +11,7 @@
     background-color: #f4f7fd;
   }
 
-  .header {
-    height: 97px;
 
-  }
 }
 
 @layer components {

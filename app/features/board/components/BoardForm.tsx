@@ -11,7 +11,7 @@ import { Input } from "@/app/components/Input";
 import CloseIcon from "@/app/components/icons/CloseIcon";
 import { Board, Column } from "@/app/types";
 
-const schemaTitle = z.string(z.string().min(1));
+const schemaTitle = z.string().min(1);
 const schemaColumn = z.object({ title: z.string().min(1) });
 
 type Title = z.infer<typeof schemaTitle>;
@@ -52,7 +52,7 @@ const BoardForm = ({ board, setIsOpen }: BoardFormProps) => {
       setColumns(updatedData.columns);
       setIsOpen(false);
     } else {
-      const newBoard = await createBoard(title, columns);
+      await createBoard(title, columns);
       setColumns([]);
       setTitle("");
       setIsOpen(false);

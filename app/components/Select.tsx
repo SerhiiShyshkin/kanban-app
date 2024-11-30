@@ -1,9 +1,9 @@
 import useToggleOpen from "@/lib/hooks/useToggleOpen";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 
 type SelectProps<T> = {
   options: T[];
-  selectedOption: T;
+  selectedOption: string;
   getOptionalValue: (option: T) => string;
   onChange: (option: T) => void;
 };
@@ -21,7 +21,7 @@ const Select = <T,>({ options, selectedOption, onChange, getOptionalValue }: Sel
   return (
     <div ref={ref} className="relative inline-block w-full" onClick={toggleDropdown}>
       <div className=" border border-solid border-textMuted border-opacity-25 rounded w-full font-sans text-s text-black focus:outline-none font-medium py-2 px-4">
-        {selectedOption as ReactNode}
+        {selectedOption}
       </div>
       {isOpen && (
         <div className="absolute flex flex-col gap-2 w-full mt-2 bg-white rounded-lg shadow-dropdown p-4">

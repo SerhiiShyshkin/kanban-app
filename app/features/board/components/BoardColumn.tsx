@@ -1,16 +1,13 @@
-import { Subtask, Task } from "@prisma/client";
+
+import { Task } from "@/app/types";
 import ColorMarkerWithPicker from "../../../components/ColorMarkerWithPicker";
-import prisma from "@/lib/db";
-import { revalidatePath } from "next/cache";
 
 
 type BoardColumnProps = {
   title: string;
   color: string;
   id: string;
-  tasks: (Task & {
-    subtasks: Subtask[];
-  })[];
+  tasks: Task[];
 };
 
 const BoardColumn = ({ title, id, color,tasks }: BoardColumnProps) => {

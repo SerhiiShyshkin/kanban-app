@@ -1,7 +1,7 @@
-import prisma from "@/lib/db";
+
 import { redirect } from "next/navigation";
-import Sidebar from "./Sidebar";
-import { getBoard, getBoards } from "@/lib/server-actions/board-actions";
+
+import {  getBoards } from "@/lib/server-actions/board-actions";
 
 export default async function Home() {
   const [first] = await getBoards();

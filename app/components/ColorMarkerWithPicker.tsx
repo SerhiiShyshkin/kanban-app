@@ -1,6 +1,6 @@
 "use client";
 
-import { updateColor } from "@/lib/server-actions/board-actions";
+import { updateColumnColor } from "@/lib/server-actions/board-actions";
 import prisma from "@/lib/db";
 import useToggleOpen from "@/lib/hooks/useToggleOpen";
 import { revalidatePath } from "next/cache";
@@ -23,7 +23,7 @@ const ColorMarkerWithPicker = ({ id, color }: ColorMarkerWithPickerProps) => {
       <div style={{ backgroundColor: `${newColor}` }} className="w-[15px] h-[15px] rounded-full" onClick={toggleOpen} />
       {isOpen && (
         <div className="absolute top-4 left-3">
-          <HexColorPicker color={newColor} onChange={setColor} onClick={() => updateColor(id, newColor)} />
+          <HexColorPicker color={newColor} onChange={setColor} onClick={() => updateColumnColor(id, newColor)} />
         </div>
       )}
     </div>
