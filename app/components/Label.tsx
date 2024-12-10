@@ -1,15 +1,14 @@
 type LabelProps = {
-  className?: string;
-  htmlFor: string;
-  name: string;
+    htmlFor: string;
+    name: string;
 };
 
-const Label = ({ className, htmlFor, name }: LabelProps) => {
-  return (
-    <label htmlFor={htmlFor} className={className}>
-      {name}
-    </label>
-  );
+const Label = ({htmlFor, name}: LabelProps) => {
+    return (
+        <label htmlFor={htmlFor} className="block text-body-small text-textMuted">
+            {name}
+        </label>
+    );
 };
 
-export { Label };
+export {Label};

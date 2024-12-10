@@ -3,60 +3,88 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  }
+    html {
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    }
 
-  body {
-    background-color: #f4f7fd;
-  }
+    body {
+        background-color: #f4f7fd;
+    }
 
 
 }
 
 @layer components {
-  .btn-primary-L {
-    @apply bg-primaryPurple text-sm text-white font-bold leading-19 tracking-normal flex gap-4 justify-center items-center py-4 px-6 rounded-full;
-  }
 
-  .btn-primary-S {
-    @apply bg-primaryPurple text-s text-white font-bold leading-23 tracking-normal flex justify-center items-center py-2  px-[69.5px] w-full rounded-[20px];
-  }
+    /*=== Buttons ===*/
+    .btn {
+        @apply font-bold tracking-normal flex justify-center items-center gap-4 w-full rounded-full
+    }
 
-  .btn-secondary {
-    @apply bg-primaryPurple bg-opacity-10 text-s text-primaryPurple font-bold leading-23 tracking-normal flex gap-4 justify-center items-center pt-[8px] pr-[69.5px] pb-[9px] pl-[69.5px] w-full rounded-[20px];
-  }
+    .btn-primary {
+        @apply bg-primaryPurple text-sm text-white leading-19 py-4 px-6;
+    }
 
-  .btn-destructive {
-    @apply bg-errorRed text-s text-white font-bold leading-23 tracking-normal flex gap-4 items-center pt-[8px] pr-[69.5px] pb-[9px] pl-[69.5px] w-full rounded-[20px];
-  }
+    .btn-primary-sm {
+        @apply bg-primaryPurple text-s text-white leading-23 py-2  px-[69.5px];
+    }
 
-  .btn-transparent {
-    @apply text-sm text-primaryPurple font-bold leading-19 tracking-normal block p-4 pl-8;
-  }
+    .btn-secondary {
+        @apply bg-primaryPurple bg-opacity-10 text-s text-primaryPurple leading-23 pt-[8px] pr-[69.5px] pb-[9px] pl-[69.5px];
+    }
 
-  .btn-icon {
-    @apply text-sm text-primaryPurple font-bold leading-19 tracking-normal flex items-center;
-  }
+    .btn-danger {
+        @apply bg-errorRed text-s text-white leading-23 pt-[8px] pr-[69.5px] pb-[9px] pl-[69.5px];
+    }
+
+    .btn-text {
+        @apply text-sm text-primaryPurple leading-19 p-4 pl-8 rounded-none;
+    }
+
+
+    /*=== Typography ===*/
+    .text-heading-xl {
+        @apply text-xl leading-30 font-bold;
+    }
+
+    .text-heading-lg {
+        @apply text-lg leading-23 font-bold;
+    }
+
+    .text-heading-md {
+        @apply text-sm leading-19 font-bold;
+    }
+
+    .text-body {
+        @apply text-s leading-23 font-bold;
+    }
+
+    .text-body-small {
+        @apply text-xs leading-15 font-bold;
+    }
+
+    .text-caption {
+        @apply text-s leading-23 font-medium;
+    }
 }
 
 @layer utilities {
-  .scrollbar::-webkit-scrollbar {
-    width: 3px;
-    height: 3px;
-  }
+    .scrollbar::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+    }
 
-  .scrollbar::-webkit-scrollbar-track {
-    border-radius: 100px;
-    background: #fff;
-  }
+    .scrollbar::-webkit-scrollbar-track {
+        border-radius: 100px;
+        background: #fff;
+    }
 
-  .scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 100px;
-    background: #ccced4;
-  }
+    .scrollbar::-webkit-scrollbar-thumb {
+        border-radius: 100px;
+        background: #ccced4;
+    }
 
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #a6a8ad;
-  }
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #a6a8ad;
+    }
 }

@@ -1,62 +1,63 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { z } from "zod";
-import { createBoard, updateBoard } from "@/lib/server-actions/board-actions";
-import { getRandomColor } from "@/lib/helpers/getRandomColor";
-import { Prisma } from "@prisma/client";
-import { Label } from "@/app/components/Label";
-import Form from "@/app/components/Form";
-import { Input } from "@/app/components/Input";
-import CloseIcon from "@/app/components/icons/CloseIcon";
-import { Board, Column } from "@/app/types";
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { z } from 'zod';
+import { createBoard, updateBoard } from '@/lib/server-actions/board-actions';
+import { Label } from '@/app/components/Label';
+import Form from '@/app/components/Form';
+import { Input } from '@/app/components/Input';
+import CloseIcon from '@/app/components/icons/CloseIcon';
+import { Board, Column } from '@/app/types';
+import { cloneDeep } from 'lodash';
+import { UI_TEXTS } from '@/app/features/board/boardUIConstants';
 
-const schemaTitle = z.string().min(1);
-const schemaColumn = z.object({ title: z.string().min(1) });
-
-type Title = z.infer<typeof schemaTitle>;
+const titleSchema = z.string().min(1);
+const columnSchema = z.object({
+  title: z.string().min(1),
+});
 
 type BoardFormProps = {
-  board: Board | null;
-  setIsOpen: (isOpen: boolean) => void;
+  board?: Board | null;
+  onClose: () => void;
 };
 
-const BoardForm = ({ board, setIsOpen }: BoardFormProps) => {
-  const [title, setTitle] = useState<Title>(board ? board.title : "");
-  const [columns, setColumns] = useState<Column[]>(board ? board.columns : []);
+const BoardForm = ({ board = null, onClose }: BoardFormProps) => {
+  const localColumns: Column[] | undefined = cloneDeep(board?.columns);
+  const [title, setTitle] = useState<string>(board?.title || '');
+  const [columns, setColumns] = useState<Column[]>(localColumns || []);
 
-  const parseColumns = schemaColumn.array().safeParse(columns);
-  const parseTitle = schemaTitle.safeParse(title);
+  const parseTitle = titleSchema.safeParse(title);
+  const parseColumns = columnSchema.array().safeParse(columns);
 
-  const handleColumnChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
-    const columnValues: Column[] = [...(columns || [])];
-    columnValues[index].title = e.target.value;
-    columnValues[index].color = getRandomColor();
-    setColumns(columnValues);
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
   };
 
-  const handleRemoveColumn = (index: number) => {
-    const updatedColumns = columns.filter((_, i) => i !== index);
+  const handleColumnChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
+    const updatedColumns = columns.map((column) =>
+      column.id === id ? { ...column, title: e.target.value } : column
+    );
     setColumns(updatedColumns);
   };
 
-  const addEmptyColumn = () => {
-    setColumns([...columns, { title: "" } as Column]);
+  const handleRemoveColumn = (index: number) => {
+    const remainingColumns = columns.filter((_, i) => i !== index);
+    setColumns(remainingColumns);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const addEmptyColumn = () => {
+    setColumns([
+      ...columns,
+      { id: Date.now().toString(), title: '', color: '' },
+    ]);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (board) {
-      const updatedData = await updateBoard(board.id, title, columns);
-      setTitle(updatedData.title);
-      setColumns(updatedData.columns);
-      setIsOpen(false);
-    } else {
-      await createBoard(title, columns);
-      setColumns([]);
-      setTitle("");
-      setIsOpen(false);
-    }
+    onClose();
+    return board != null
+      ? await updateBoard(board.id, title, columns)
+      : await createBoard(title, columns);
   };
 
   return (
@@ -64,41 +65,51 @@ const BoardForm = ({ board, setIsOpen }: BoardFormProps) => {
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <Label
-            className="block text-textMuted text-xs font-bold leading-15 tracking-normal"
-            htmlFor="title"
-            name={`${board ? "Board Name" : "Name"}`}
+            htmlFor={UI_TEXTS.form.nameField.label.for}
+            name={`${board ? UI_TEXTS.form.nameField.label.existingBoard : UI_TEXTS.form.nameField.label.newBoard}`}
           />
-          <Input label="title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Web Design" />
+          <Input
+            id={UI_TEXTS.form.nameField.label.for}
+            value={title}
+            onChange={handleTitleChange}
+            placeholder={UI_TEXTS.form.nameField.placeholder}
+          />
         </div>
-        <div className="flex flex-col gap-2">
+        <div role="group" className="flex flex-col gap-2">
           {columns.length > 0 && (
-            <Label
-              className="block text-textMuted text-xs font-bold leading-15 tracking-normal"
-              htmlFor="column"
-              name={`${board ? "Board Columns" : "Columns"}`}
-            />
+            <h3 className="text-body-small text-textMuted">
+              {UI_TEXTS.form.columnsGroup}
+            </h3>
           )}
           <div className="flex flex-col gap-3">
-            {columns.map((column, index) => (
+            {columns.map(({ title, id }, index) => (
               <div className="flex justify-between gap-4" key={index}>
                 <Input
-                  name="column"
-                  label="column"
-                  value={column?.title}
-                  onChange={(e) => handleColumnChange(index, e)}
+                  id="column"
+                  value={title}
+                  onChange={(e) => handleColumnChange(id, e)}
                 />
-                <button type="button" className="btn-icon" onClick={() => handleRemoveColumn(index)}>
+                <button type="button" onClick={() => handleRemoveColumn(index)}>
                   <CloseIcon className="fill-textMuted hover:fill-errorRed" />
                 </button>
               </div>
             ))}
-            <button type="button" className="btn-secondary" onClick={addEmptyColumn} disabled={!parseColumns.success}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={addEmptyColumn}
+              disabled={!parseColumns.success}
+            >
               Add New Column
             </button>
           </div>
         </div>
-        <button type="submit" className="btn-primary-S" disabled={!parseTitle.success || !parseColumns.success}>
-          {`${board ? "Save Changes" : "Create New Board"}`}
+        <button
+          type="submit"
+          className="btn btn-primary-sm"
+          disabled={!parseTitle.success || !parseColumns.success}
+        >
+          {`${board ? 'Save Changes' : 'Create New Board'}`}
         </button>
       </div>
     </Form>
