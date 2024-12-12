@@ -1,21 +1,20 @@
-import BoardList from './features/board/components/BoardList';
-import AddBoard from '@/app/features/board/components/AddBoard';
-import { getBoards } from '@/lib/server-actions/board-actions';
+'use client';
 
-export default async function Sidebar() {
-  const boards = await getBoards();
+import React from 'react';
 
-  //console.log(boards[0]);
+type SidebarProps = {
+  children: React.ReactNode;
+};
 
+const Sidebar = ({ children }: SidebarProps) => {
   return (
-    <div className="grid grid-rows-[minmax(0,_max-content)_max-content_1fr] max-w-[300px] bg-white max-h-screen min-h-full">
-      <BoardList boards={boards} />
-      <div className="row-start-2 row-end-3">
-        <AddBoard />
-      </div>
-      <div className=" bg-white row-start-3 -row-end-1 col-start-1 col-end-2 p-8 self-end">
+    <div className="grid max-h-screen min-h-full max-w-sidebar grid-rows-[minmax(0,_max-content)_max-content_1fr] bg-white">
+      <div className="row-start-2 row-end-3">{children}</div>
+      <div className="col-start-1 col-end-2 row-start-3 -row-end-1 self-end p-8">
         Theme
       </div>
     </div>
   );
-}
+};
+
+export default Sidebar;
