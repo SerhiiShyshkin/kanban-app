@@ -1,6 +1,6 @@
 import './globals.css';
 import { LogoIcon } from './components/icons/LogoIcon';
-import Sidebar from './Sidebar';
+import Sidebar from './components/Sidebar';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
 import Link from 'next/link';
