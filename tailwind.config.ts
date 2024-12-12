@@ -19,6 +19,9 @@ const config: Config = {
         '23': '1.438rem',
         '30': '1.875rem',
       },
+      maxWidth: {
+        sidebar: '300px',
+      },
     },
     fontSize: {
       xs: '0.75rem',
