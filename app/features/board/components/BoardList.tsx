@@ -11,8 +11,8 @@ type BoardListProps = {
 
 const BoardList = ({ title, boards = [] }: BoardListProps) => {
   return (
-    <div className="max-h-board-list row-start-1 row-end-2 flex flex-col gap-5 pr-6">
-      <div className="text-body-small tracking-wide-2.4 pl-8 text-textMuted">
+    <div className="row-start-1 row-end-2 flex max-h-board-list flex-col gap-5 pr-6">
+      <div className="text-body-small pl-8 tracking-wide-2.4 text-textMuted">
         {`${title} (${boards.length})`.toUpperCase()}
       </div>
       <div className="scrollbar overflow-y-auto pr-6">
