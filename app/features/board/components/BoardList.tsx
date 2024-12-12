@@ -1,24 +1,30 @@
 'use client';
+
 import BoardItem from '@/app/features/board/components/BoardItem';
 import BoardIcon from './BoardIcon';
 import { Board } from '@/app/types';
 
 type BoardListProps = {
-  boards?: Board[];
+  title: string;
+  boards: Board[];
 };
 
-const BoardList = ({ boards = [] }: BoardListProps) => {
+const BoardList = ({ title, boards = [] }: BoardListProps) => {
   return (
-    <div className="row-start-1 row-end-2 max-h-[55vh] overflow-y-auto scrollbar pr-6">
-      <div className="text-s text-textMuted leading-15 tracking-[2.4px] font-bold pl-8 pb-[19px]">{`ALL BOARDS (${boards.length})`}</div>
-      {boards.map((board, index) => (
-        <BoardItem
-          href={`/board/${board.id}`}
-          key={index}
-          title={board.title}
-          icon={<BoardIcon />}
-        />
-      ))}
+    <div className="max-h-board-list row-start-1 row-end-2 flex flex-col gap-5 pr-6">
+      <div className="text-body-small tracking-wide-2.4 pl-8 text-textMuted">
+        {`${title} (${boards.length})`.toUpperCase()}
+      </div>
+      <div className="scrollbar overflow-y-auto pr-6">
+        {boards.map(({ id, title }) => (
+          <BoardItem
+            href={`/board/${id}`}
+            key={id}
+            title={title}
+            icon={<BoardIcon />}
+          />
+        ))}
+      </div>
     </div>
   );
 };

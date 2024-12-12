@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { getBoards } from '@/lib/server-actions/board-actions';
 import BoardList from '@/app/features/board/components/BoardList';
 import AddBoard from '@/app/features/board/components/AddBoard';
+import { UI_TEXTS } from '@/app/features/board/boardUIConstants';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -30,7 +31,7 @@ export default async function RootLayout({
           </div>
           <div className="col-start-1 col-end-2 row-start-2 row-end-3 h-full">
             <Sidebar>
-              <BoardList boards={boards} />
+              <BoardList title={UI_TEXTS.boardList.title} boards={boards} />
               <AddBoard />
             </Sidebar>
           </div>
