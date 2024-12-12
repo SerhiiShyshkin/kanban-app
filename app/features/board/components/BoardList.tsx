@@ -1,8 +1,9 @@
 'use client';
 
-import BoardItem from '@/app/features/board/components/BoardItem';
+import BoardItem from '@/app/features/board/components/BoardLink';
 import BoardIcon from './BoardIcon';
 import { Board } from '@/app/types';
+import { UI_TEXTS } from '@/app/features/board/boardUIConstants';
 
 type BoardListProps = {
   title: string;
@@ -18,7 +19,7 @@ const BoardList = ({ title, boards = [] }: BoardListProps) => {
       <div className="scrollbar overflow-y-auto pr-6">
         {boards.map(({ id, title }) => (
           <BoardItem
-            href={`/board/${id}`}
+            href={`${UI_TEXTS.boardList.path}/${id}`}
             key={id}
             title={title}
             icon={<BoardIcon />}

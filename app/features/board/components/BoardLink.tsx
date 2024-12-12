@@ -4,20 +4,20 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
-type BoardItemProps = {
+type BoardLinkProps = {
   href: string;
   title?: string;
   icon?: ReactNode;
   id?: string;
 };
 
-const BoardItem = ({ href, title, icon }: BoardItemProps) => {
+const BoardLink = ({ href, title, icon }: BoardLinkProps) => {
   const pathname = usePathname();
 
   return (
     <Link
       href={href}
-      className="flex text-heading-md gap-4 font-bold items-center rounded-r-[100px] py-4 pl-8 *:text-textMuted *:fill-textMuted has-[:checked]:bg-primaryPurple"
+      className="text-heading-md flex items-center gap-4 rounded-r-[100px] py-4 pl-8 font-bold *:fill-textMuted *:text-textMuted has-[:checked]:bg-primaryPurple"
     >
       <input
         className="peer hidden"
@@ -33,4 +33,4 @@ const BoardItem = ({ href, title, icon }: BoardItemProps) => {
   );
 };
 
-export default BoardItem;
+export default BoardLink;

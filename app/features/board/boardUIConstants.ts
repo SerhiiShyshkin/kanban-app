@@ -13,5 +13,6 @@ export const UI_TEXTS = {
   },
   boardList: {
     title: 'All Boards',
+    path: '/board',
   },
 };
