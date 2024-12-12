@@ -15,4 +15,7 @@ export const UI_TEXTS = {
     title: 'All Boards',
     path: '/board',
   },
+  addButton: {
+    title: '+ Add New Board',
+  },
 };

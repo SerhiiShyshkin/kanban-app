@@ -8,7 +8,11 @@ import Button from '@/app/components/Button';
 
 const Modal = dynamic(() => import('@/app/components/Modal'), { ssr: false });
 
-const AddBoard = () => {
+type AddBoardProps = {
+  title: string;
+};
+
+const AddBoard = ({ title }: AddBoardProps) => {
   const { isOpen, setIsOpen } = useToggleOpen();
 
   return (
@@ -19,7 +23,7 @@ const AddBoard = () => {
       >
         <div className="flex items-center gap-4 fill-primaryPurple text-primaryPurple">
           <BoardIcon />
-          <span>+ Add New Board</span>
+          <span>{title}</span>
         </div>
       </Button>
 

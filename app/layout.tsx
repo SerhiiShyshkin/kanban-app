@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import { getBoards } from '@/lib/server-actions/board-actions';
 import BoardList from '@/app/features/board/components/BoardList';
-import AddBoard from '@/app/features/board/components/AddBoard';
+import AddBoard from '@/app/features/board/AddBoard';
 import { UI_TEXTS } from '@/app/features/board/boardUIConstants';
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default async function RootLayout({
           <div className="col-start-1 col-end-2 row-start-2 row-end-3 h-full">
             <Sidebar>
               <BoardList title={UI_TEXTS.boardList.title} boards={boards} />
-              <AddBoard />
+              <AddBoard title={UI_TEXTS.addButton.title} />
             </Sidebar>
           </div>
           <div className="col-start-2 col-end-3 row-start-1 row-end-3">
