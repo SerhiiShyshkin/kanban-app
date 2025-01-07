@@ -6,6 +6,7 @@ import InteractiveItem from '@/app/components/InteractiveItem';
 import Link from 'next/link';
 import { useState } from 'react';
 import BoardIcon from '@/app/features/board/components/BoardIcon';
+import { UI_TEXTS } from '@/app/features/board/boardUIConstants';
 
 type BoardMenuProps = {
   boards: Board[];
@@ -18,7 +19,7 @@ const BoardMenu = ({ boards }: BoardMenuProps) => {
     <List
       data={boards}
       renderItem={({ id, title }) => (
-        <Link href={`/board/${id}`}>
+        <Link href={`/${UI_TEXTS.boardList.path}/${id}`}>
           <InteractiveItem
             isActive={activeId === id}
             setActive={() => setActiveId(id)}
