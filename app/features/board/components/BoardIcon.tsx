@@ -1,10 +1,5 @@
-type BoardIconProps = {
-  color?: string;
-};
-
-const BoardIcon = ({ color }: BoardIconProps) => (
+const BoardIcon = () => (
   <svg
-    fill={color}
     width="16"
     height="16"
     viewBox="0 0 16 16"
