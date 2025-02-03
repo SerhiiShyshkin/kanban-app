@@ -4,7 +4,6 @@ import { Column } from '@/app/types';
 import prisma from '../db';
 import { revalidatePath } from 'next/cache';
 import { getRandomColor } from '@/lib/helpers/getRandomColor';
-import { redirect } from 'next/navigation';
 
 const updateColumnColor = async (columnId: string, color: string) => {
   try {

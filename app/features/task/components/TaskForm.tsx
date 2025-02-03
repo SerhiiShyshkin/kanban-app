@@ -73,27 +73,17 @@ export default function TaskForm({
     <Form onSubmit={handleSubmit}>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <Label
-            className="block text-textMuted text-xs font-bold leading-15 tracking-normal"
-            htmlFor="title"
-            name="Title"
-          />
+          <Label htmlFor="title" name="Title" />
           <Input
-            label="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="e.g. Take coffee break"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <Label
-            className="block text-textMuted text-xs font-bold leading-15 tracking-normal"
-            htmlFor="description"
-            name="Description"
-          />
+          <Label htmlFor="description" name="Description" />
           <Input
             type="textarea"
-            label="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="e.g. It’s always good to take a break. This 15 minute break will
@@ -101,19 +91,11 @@ export default function TaskForm({
           />
         </div>
         <div className="flex flex-col gap-2">
-          {subtasks.length > 0 && (
-            <Label
-              className="block text-textMuted text-xs font-bold leading-15 tracking-normal"
-              htmlFor="column"
-              name="Subtasks"
-            />
-          )}
+          {subtasks.length > 0 && <Label htmlFor="column" name="Subtasks" />}
           <div className="flex flex-col gap-3">
             {subtasks.map((subtask, index) => (
               <div className="flex justify-between gap-4" key={index}>
                 <Input
-                  name="column"
-                  label="column"
                   value={subtask.title}
                   onChange={(e) => handleSubtasksChange(index, e)}
                 />

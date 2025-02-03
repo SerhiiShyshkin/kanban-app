@@ -1,7 +1,7 @@
-"use server";
+'use server';
 
-import prisma from "../db";
-import { revalidatePath } from "next/cache";
+import prisma from '../db';
+import { revalidatePath } from 'next/cache';
 
 export async function createTask({
   title,
@@ -16,7 +16,7 @@ export async function createTask({
 }) {
   const subtasks1: { title: string }[] = [];
 
-  subtasks.map((subtask, index) => subtasks1.push({ title: subtask.title }));
+  subtasks.map((subtask) => subtasks1.push({ title: subtask.title }));
   await prisma.task.create({
     data: {
       title,
@@ -34,5 +34,3 @@ export async function createTask({
 
   revalidatePath(`/board/${columnId}`);
 }
-
-

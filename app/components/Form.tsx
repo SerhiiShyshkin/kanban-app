@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { FormEvent, ReactNode } from "react";
+import { FormEvent, ReactNode } from 'react';
 
 type FormProps = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;

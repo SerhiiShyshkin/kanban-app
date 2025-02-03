@@ -1,35 +1,33 @@
 'use client';
 
-import BoardIcon from '@/app/features/board/components/BoardIcon';
 import useToggleOpen from '@/lib/hooks/useToggleOpen';
 import dynamic from 'next/dynamic';
 import BoardForm from '@/app/features/board/components/BoardForm';
 import Button from '@/app/components/Button';
+import { ReactNode } from 'react';
 
 const Modal = dynamic(() => import('@/app/components/Modal'), { ssr: false });
 
 type AddBoardProps = {
-  title: string;
+  children: ReactNode;
 };
 
-const AddBoard = ({ title }: AddBoardProps) => {
+const AddBoard = ({ children }: AddBoardProps) => {
   const { isOpen, setIsOpen } = useToggleOpen();
 
   return (
     <>
       <Button
+        type="button"
         className="btn btn-text text-heading-md justify-start"
         onClick={() => setIsOpen(true)}
       >
-        <div className="flex items-center gap-4 fill-primaryPurple text-primaryPurple">
-          <BoardIcon />
-          <span>{title}</span>
-        </div>
+        <div className="flex items-center gap-4 group1">{children}</div>
       </Button>
 
       {isOpen && (
         <Modal onClose={() => setIsOpen(false)}>
-          <BoardForm onClose={() => setIsOpen(false)}></BoardForm>
+          <BoardForm onClose={() => setIsOpen(false)} />
         </Modal>
       )}
     </>

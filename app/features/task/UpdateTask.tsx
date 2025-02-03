@@ -26,7 +26,7 @@ export default function UpdateTask({ task, columns = [] }: UpdateTaskProps) {
         + Add New Task
       </Button>
       {isOpen && columns.length > 0 && (
-        <Modal setIsOpen={setIsOpen}>
+        <Modal>
           <TaskForm
             task={task}
             columns={columns ? columns : []}

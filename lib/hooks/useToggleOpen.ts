@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 
 const useToggleOpen = (initialIsOpen: boolean = false) => {
   const [isOpen, setIsOpen] = useState(initialIsOpen);
@@ -13,9 +13,9 @@ const useToggleOpen = (initialIsOpen: boolean = false) => {
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 

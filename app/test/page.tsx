@@ -1,7 +1,3 @@
 export default function Test() {
-    return (
-        <>
-            Test page
-        </>
-    );
+  return <>Test page</>;
 }

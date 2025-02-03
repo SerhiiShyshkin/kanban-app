@@ -22,6 +22,12 @@ const config: Config = {
       maxWidth: {
         sidebar: '300px',
       },
+      maxHeight: {
+        'board-list': '55vh',
+      },
+      letterSpacing: {
+        'wide-2.4': '2.4px',
+      },
     },
     fontSize: {
       xs: '0.75rem',

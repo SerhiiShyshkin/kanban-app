@@ -15,6 +15,13 @@
 }
 
 @layer components {
+    .group1 svg {
+        fill: #635FC7;
+    }
+
+    .group1:hover svg {
+        fill: red;
+    }
 
     /*=== Buttons ===*/
     .btn {

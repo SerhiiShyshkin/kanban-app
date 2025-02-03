@@ -5,9 +5,10 @@ import { Metadata } from 'next';
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import { getBoards } from '@/lib/server-actions/board-actions';
-import BoardList from '@/app/features/board/components/BoardList';
 import AddBoard from '@/app/features/board/AddBoard';
 import { UI_TEXTS } from '@/app/features/board/boardUIConstants';
+import BoardIcon from '@/app/features/board/components/BoardIcon';
+import { BoardMenu } from '@/app/features/board/BoardMenu';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,6 +21,7 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   const boards = await getBoards();
+
   return (
     <html className="h-full" lang="en">
       <body className="h-full">
@@ -31,8 +33,22 @@ export default async function RootLayout({
           </div>
           <div className="col-start-1 col-end-2 row-start-2 row-end-3 h-full">
             <Sidebar>
-              <BoardList title={UI_TEXTS.boardList.title} boards={boards} />
-              <AddBoard title={UI_TEXTS.addButton.title} />
+              <div className="row-start-1 row-end-2 flex max-h-board-list flex-col gap-5 pr-6">
+                <div className="text-body-small pl-8 tracking-wide-2.4 text-textMuted">
+                  {`${UI_TEXTS.boardList.title} (${boards.length})`.toUpperCase()}
+                </div>
+                <div className="scrollbar overflow-y-auto pr-6">
+                  <BoardMenu boards={boards} />
+                </div>
+              </div>
+              <AddBoard>
+                {
+                  <>
+                    <BoardIcon />
+                    <div>{UI_TEXTS.addButton.title}</div>
+                  </>
+                }
+              </AddBoard>
             </Sidebar>
           </div>
           <div className="col-start-2 col-end-3 row-start-1 row-end-3">

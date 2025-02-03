@@ -13,7 +13,7 @@ export const UI_TEXTS = {
   },
   boardList: {
     title: 'All Boards',
-    path: '/board',
+    path: 'board',
   },
   addButton: {
     title: '+ Add New Board',

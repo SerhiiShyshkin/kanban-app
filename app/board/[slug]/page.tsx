@@ -4,6 +4,7 @@ import UpdateTask from '@/app/features/task/UpdateTask';
 import { Column } from '@/app/types';
 import BoardActions from '@/app/features/board/components/BoardActions';
 import { redirect } from 'next/navigation';
+import BoardIcon from '@/app/features/board/components/BoardIcon';
 
 export default async function Board({ params }: { params: { slug: string } }) {
   const board = await getBoardById(params.slug);
@@ -26,6 +27,7 @@ export default async function Board({ params }: { params: { slug: string } }) {
         <div className="flex-none">
           <BoardActions board={board} />
         </div>
+        <BoardIcon />
       </div>
       <div className="flex flex-row px-6 py-6 gap-6">
         {board?.columns.map(({ id, title, color, tasks }) => (
